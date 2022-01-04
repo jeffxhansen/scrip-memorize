@@ -1,0 +1,50 @@
+.box {
+    /*border: 1px solid black;*/
+}
+
+.card {
+    margin: 20px 8px;
+}
+
+.card .card-action {
+  background-color: inherit;
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  position: relative;
+  padding: 16px 24px;
+  text-align: right;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color: #3e2723;
+  color: #0277bd;
+  margin-right: 24px;
+  -webkit-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: uppercase;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating):hover {
+  color: #bcaaa4;
+  color: #00b0ff;
+}
+
+.carousel {
+    height: 580px;
+}
+
+.carousel .indicators .indicator-item {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+.carousel .indicators .indicator-item.active {
+  background-color: rgba(30, 30, 30, 0.5);
+  background-color: #3e2723;
+}
+
+
+.carousel-img-container img {
+    width: 400px;
+    height: 400px;
+}
+
+.tabs-content.carousel { height: 100%; }
