@@ -7591,6 +7591,11 @@ $jscomp.polyfill = function (e, r, p, m) {
             $card.css('overflow', $card.data('initialOverflow'));
           }
         });
+        // add ability to swipe through the carousel
+        console.log(M.slider);
+        M.slider._setupEventHandlers();
+        console.log(this);
+
       } else if ($(e.target).is($('.card .activator')) || $(e.target).is($('.card .activator i'))) {
         $card.css('overflow', 'hidden');
         $cardReveal.css({ display: 'block' });
@@ -7600,6 +7605,11 @@ $jscomp.polyfill = function (e, r, p, m) {
           duration: 300,
           easing: 'easeInOutQuad'
         });
+
+        // remove ability to swipe through the carousel
+        console.log(M.Carousel);
+        M.slider._removeEventHandlers();
+        console.log($(this));
       }
     }
   });
@@ -10590,6 +10600,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_setupEventHandlers",
       value: function _setupEventHandlers() {
         var _this63 = this;
+        console.log(this);
 
         this._handleCarouselTapBound = this._handleCarouselTap.bind(this);
         this._handleCarouselDragBound = this._handleCarouselDrag.bind(this);
