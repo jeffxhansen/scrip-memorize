@@ -28,6 +28,10 @@
   color: #00b0ff;
 }
 
+.card {
+    font-size: 16px;
+}
+
 .carousel {
     height: 580px;
 }
