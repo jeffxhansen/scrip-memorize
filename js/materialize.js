@@ -7570,6 +7570,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     M.initializeJqueryWrapper(Slider, 'slider', 'M_Slider');
   }
 })(cash, M.anime);
+var slider_active = false;
 ;(function ($, anim) {
   $(document).on('click', '.card', function (e) {
     if ($(this).children('.card-reveal').length) {
@@ -7592,9 +7593,10 @@ $jscomp.polyfill = function (e, r, p, m) {
           }
         });
         // add ability to swipe through the carousel
-        console.log(M.slider);
-        M.slider._setupEventHandlers();
-        console.log(this);
+        slider_active = false;
+        
+        //console.log(M.Carousel._setupEventHandlers());
+        //M.Carousel.prototype._setupEventHandlers();
 
       } else if ($(e.target).is($('.card .activator')) || $(e.target).is($('.card .activator i'))) {
         $card.css('overflow', 'hidden');
@@ -7607,9 +7609,11 @@ $jscomp.polyfill = function (e, r, p, m) {
         });
 
         // remove ability to swipe through the carousel
-        console.log(M.Carousel);
-        M.slider._removeEventHandlers();
-        console.log($(this));
+        slider_active = true;
+        
+        //console.log(M.Carousel._removeEventHandlers());
+        //console.log(Object.getPrototypeOf(M.Carousel));
+        //M.Carousel.prototype._removeEventHandlers();
       }
     }
   });
@@ -10600,7 +10604,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_setupEventHandlers",
       value: function _setupEventHandlers() {
         var _this63 = this;
-        console.log(this);
+        console.log(" > " + this.toString());
 
         this._handleCarouselTapBound = this._handleCarouselTap.bind(this);
         this._handleCarouselDragBound = this._handleCarouselDrag.bind(this);
@@ -10695,39 +10699,42 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_handleCarouselDrag",
       value: function _handleCarouselDrag(e) {
-        var x = void 0,
+        if (!slider_active) {
+          var x = void 0,
             y = void 0,
             delta = void 0,
             deltaY = void 0;
-        if (this.pressed) {
-          x = this._xpos(e);
-          y = this._ypos(e);
-          delta = this.reference - x;
-          deltaY = Math.abs(this.referenceY - y);
-          if (deltaY < 30 && !this.verticalDragged) {
-            // If vertical scrolling don't allow dragging.
-            if (delta > 2 || delta < -2) {
-              this.dragged = true;
-              this.reference = x;
-              this._scroll(this.offset + delta);
+          if (this.pressed) {
+            x = this._xpos(e);
+            y = this._ypos(e);
+            delta = this.reference - x;
+            deltaY = Math.abs(this.referenceY - y);
+            if (deltaY < 30 && !this.verticalDragged) {
+              // If vertical scrolling don't allow dragging.
+              if (delta > 2 || delta < -2) {
+                this.dragged = true;
+                this.reference = x;
+                this._scroll(this.offset + delta);
+              }
+            } else if (this.dragged) {
+              // If dragging don't allow vertical scroll.
+              e.preventDefault();
+              e.stopPropagation();
+              return false;
+            } else {
+              // Vertical scrolling.
+              this.verticalDragged = true;
             }
-          } else if (this.dragged) {
+          }
+
+          if (this.dragged) {
             // If dragging don't allow vertical scroll.
             e.preventDefault();
             e.stopPropagation();
             return false;
-          } else {
-            // Vertical scrolling.
-            this.verticalDragged = true;
           }
         }
-
-        if (this.dragged) {
-          // If dragging don't allow vertical scroll.
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
+        
       }
 
       /**
